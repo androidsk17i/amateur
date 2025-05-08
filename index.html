@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amateur Photo Prompt Generator | Stable Diffusion</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-camera-retro"></i>
+                <h1>Amateur Photo Prompt Generator</h1>
+            </div>
+            <p class="description">Generate prompts for RealisticVisionV60B1_v51HyperVAE model that create amateur-looking photos rather than professional ones.</p>
+            
+            <!-- Theme toggle -->
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="prompt-container">
+                <div class="tabs">
+                    <button id="settings-tab" class="tab active">Settings</button>
+                    <button id="results-tab" class="tab">Results</button>
+                    <button id="history-tab" class="tab">History</button>
+                    <button id="favorites-tab" class="tab">Favorites</button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Settings Tab -->
+                    <div id="settings-content" class="tab-pane active">
+                        <div class="options">
+                            <div class="option-group">
+                                <h3>Custom Subject</h3>
+                                <div class="input-wrapper">
+                                    <input type="text" id="custom-subject" placeholder="Add your own subject (optional)">
+                                    <button id="quick-subject-btn" class="icon-btn" title="Quick subjects">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Subject Type</h3>
+                                <select id="subject">
+                                    <option value="portrait">Portrait</option>
+                                    <option value="landscape">Landscape</option>
+                                    <option value="street">Street</option>
+                                    <option value="food">Food</option>
+                                    <option value="pet">Pet</option>
+                                    <option value="family">Family</option>
+                                    <option value="travel">Travel</option>
+                                    <option value="event">Event</option>
+                                    <option value="nature">Nature</option>
+                                    <option value="object">Object</option>
+                                    <option value="sport">Sport</option>
+                                    <option value="vehicle">Vehicle</option>
+                                    <option value="selfie">Selfie</option>
+                                    <option value="child">Child</option>
+                                    <option value="beach">Beach Life</option>
+                                    <option value="night">Night Scene</option>
+                                    <option value="concert">Concert</option>
+                                    <option value="party">Party</option>
+                                    <option value="graduation">Graduation</option>
+                                    <option value="wedding">Wedding</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Location</h3>
+                                <select id="location">
+                                    <option value="home">Home</option>
+                                    <option value="backyard">Backyard</option>
+                                    <option value="park">Local Park</option>
+                                    <option value="beach">Beach</option>
+                                    <option value="city">City Streets</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="party">Party</option>
+                                    <option value="tourist">Tourist Spot</option>
+                                    <option value="mall">Shopping Mall</option>
+                                    <option value="school">School</option>
+                                    <option value="office">Office</option>
+                                    <option value="gym">Gym</option>
+                                    <option value="concert">Concert</option>
+                                    <option value="forest">Forest</option>
+                                    <option value="mountain">Mountain</option>
+                                    <option value="lake">Lake</option>
+                                    <option value="pool">Swimming Pool</option>
+                                    <option value="car">Inside Car</option>
+                                    <option value="stadium">Stadium</option>
+                                    <option value="airport">Airport</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Lighting</h3>
+                                <select id="lighting">
+                                    <option value="harsh-flash">Harsh Flash</option>
+                                    <option value="indoor">Indoor Lighting</option>
+                                    <option value="natural">Natural Light</option>
+                                    <option value="sunset">Sunset</option>
+                                    <option value="dark">Too Dark</option>
+                                    <option value="overexposed">Overexposed</option>
+                                    <option value="mixed">Mixed Lighting</option>
+                                    <option value="fluorescent">Fluorescent</option>
+                                    <option value="evening">Evening</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="window">Window Light</option>
+                                    <option value="shade">Shaded</option>
+                                    <option value="candlelight">Candlelight</option>
+                                    <option value="streetlight">Streetlight</option>
+                                    <option value="neon">Neon Lights</option>
+                                    <option value="backlit">Backlit</option>
+                                    <option value="tungsten">Tungsten Bulbs</option>
+                                    <option value="cloudy">Cloudy Day</option>
+                                    <option value="night">Night</option>
+                                    <option value="screens">Screen Light</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Camera</h3>
+                                <select id="camera">
+                                    <option value="smartphone">Smartphone</option>
+                                    <option value="point-and-shoot">Point and Shoot</option>
+                                    <option value="old-digital">Old Digital Camera</option>
+                                    <option value="disposable">Disposable Camera</option>
+                                    <option value="polaroid">Polaroid</option>
+                                    <option value="webcam">Webcam</option>
+                                    <option value="tablet">Tablet</option>
+                                    <option value="flip-phone">Flip Phone</option>
+                                    <option value="action-cam">Action Camera</option>
+                                    <option value="toy-camera">Toy Camera</option>
+                                    <option value="lomography">Lomography</option>
+                                    <option value="film">Film Camera</option>
+                                    <option value="instant">Instant Camera</option>
+                                    <option value="cctv">CCTV Camera</option>
+                                    <option value="vhs">VHS Camera</option>
+                                    <option value="digital-compact">Digital Compact</option>
+                                    <option value="camcorder">Camcorder</option>
+                                    <option value="bridge-camera">Bridge Camera</option>
+                                    <option value="outdated-phone">Outdated Phone</option>
+                                    <option value="security-cam">Security Camera</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Mistakes</h3>
+                                <select id="mistakes">
+                                    <option value="none">None</option>
+                                    <option value="blurry">Blurry</option>
+                                    <option value="finger">Finger in Frame</option>
+                                    <option value="tilted">Tilted Horizon</option>
+                                    <option value="red-eye">Red Eye</option>
+                                    <option value="bad-crop">Badly Cropped</option>
+                                    <option value="motion-blur">Motion Blur</option>
+                                    <option value="lens-flare">Lens Flare</option>
+                                    <option value="shadow">Photographer Shadow</option>
+                                    <option value="too-close">Too Close</option>
+                                    <option value="too-far">Too Far Away</option>
+                                    <option value="closed-eyes">Closed Eyes</option>
+                                    <option value="double-exposure">Double Exposure</option>
+                                    <option value="light-leak">Light Leak</option>
+                                    <option value="dust">Dust on Lens</option>
+                                    <option value="wrong-focus">Wrong Focus Point</option>
+                                    <option value="flash-reflections">Flash Reflections</option>
+                                    <option value="head-cut">Head Cut Off</option>
+                                    <option value="overprocessed">Overprocessed</option>
+                                    <option value="bad-timing">Bad Timing</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h3>Time Period</h3>
+                                <select id="time-period">
+                                    <option value="none">None</option>
+                                    <option value="70s">1970s</option>
+                                    <option value="80s">1980s</option>
+                                    <option value="90s">1990s</option>
+                                    <option value="2000s">2000s</option>
+                                    <option value="2010s">2010s</option>
+                                    <option value="present">Present</option>
+                                    <option value="digital-era">Digital Era</option>
+                                    <option value="film-era">Film Era</option>
+                                    <option value="early-digital">Early Digital</option>
+                                    <option value="social-media">Social Media Era</option>
+                                    <option value="pre-smartphone">Pre-Smartphone</option>
+                                    <option value="smartphone-era">Smartphone Era</option>
+                                    <option value="myspace">Myspace Era</option>
+                                    <option value="flip-phone-era">Flip Phone Era</option>
+                                    <option value="disposable-era">Disposable Camera Era</option>
+                                    <option value="polaroid-era">Polaroid Era</option>
+                                    <option value="vhs-era">VHS Era</option>
+                                    <option value="photo-album">Photo Album Era</option>
+                                    <option value="vintage">Vintage</option>
+                                </select>
+                            </div>
+                            
+                            <!-- New Option: Amateur Level Slider -->
+                            <div class="option-group full-width">
+                                <h3>Amateur Level <span id="amateur-level-value">Moderate</span></h3>
+                                <input type="range" id="amateur-level" min="1" max="5" value="3" class="slider">
+                                <div class="slider-labels">
+                                    <span>Subtle</span>
+                                    <span>Extreme</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="random-btn" class="btn secondary-btn">
+                                <i class="fas fa-dice"></i> Random
+                            </button>
+                            <button id="generate-btn" class="btn primary-btn">
+                                <i class="fas fa-magic"></i> Generate Prompt
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Tab -->
+                    <div id="results-content" class="tab-pane">
+                        <div class="prompt-result">
+                            <div class="prompt-section">
+                                <div class="prompt-header">
+                                    <h3>Positive Prompt</h3>
+                                    <div class="prompt-actions">
+                                        <button id="favorite-btn" class="icon-btn" title="Save to favorites">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button id="edit-prompt-btn" class="icon-btn" title="Edit prompt">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button id="copy-positive-btn" class="icon-btn" title="Copy to clipboard">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <textarea id="positive-output" readonly placeholder="Your positive prompt will appear here..."></textarea>
+                            </div>
+                            
+                            <div class="prompt-section">
+                                <div class="prompt-header">
+                                    <h3>Negative Prompt</h3>
+                                    <div class="prompt-actions">
+                                        <button id="edit-negative-btn" class="icon-btn" title="Edit negative prompt">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button id="copy-negative-btn" class="icon-btn" title="Copy to clipboard">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <textarea id="negative-output" readonly placeholder="Your negative prompt will appear here..."></textarea>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button id="copy-all-btn" class="btn secondary-btn">
+                                    <i class="fas fa-copy"></i> Copy All
+                                </button>
+                                <button id="send-to-sd-btn" class="btn primary-btn">
+                                    <i class="fas fa-paper-plane"></i> Send to Stable Diffusion
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- History Tab -->
+                    <div id="history-content" class="tab-pane">
+                        <div class="prompt-history">
+                            <div class="history-controls">
+                                <h3>Generated Prompt History</h3>
+                                <button id="clear-history-btn" class="btn small-btn danger-btn">
+                                    <i class="fas fa-trash"></i> Clear All
+                                </button>
+                            </div>
+                            <div id="history-list" class="history-list">
+                                <!-- History items will be added here by JavaScript -->
+                                <div class="empty-state">
+                                    <i class="fas fa-history"></i>
+                                    <p>Your generated prompts will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Favorites Tab -->
+                    <div id="favorites-content" class="tab-pane">
+                        <div class="prompt-favorites">
+                            <div class="favorites-controls">
+                                <h3>Saved Favorite Prompts</h3>
+                                <button id="clear-favorites-btn" class="btn small-btn danger-btn">
+                                    <i class="fas fa-trash"></i> Clear All
+                                </button>
+                            </div>
+                            <div id="favorites-list" class="favorites-list">
+                                <!-- Favorites will be added here by JavaScript -->
+                                <div class="empty-state">
+                                    <i class="fas fa-heart"></i>
+                                    <p>Your favorite prompts will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <p>Made for RealisticVisionV60B1_v51HyperVAE model | <a href="#" id="about-link">About</a></p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Quick Subject Modal -->
+    <div id="quick-subject-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Quick Subject Ideas</h3>
+                <button id="close-subject-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="quick-subject-grid" class="quick-subject-grid">
+                    <!-- Quick subject buttons will be added by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>About Amateur Photo Prompt Generator</h3>
+                <button id="close-about-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This tool generates prompts for Stable Diffusion's RealisticVisionV60B1_v51HyperVAE model that create intentionally amateur-looking photos rather than professional ones.</p>
+                <p>The prompts include various amateur photography characteristics like poor lighting, common mistakes, old equipment, and imperfect composition to create authentic everyday photos rather than professional-quality images.</p>
+                <p>Perfect for generating images that look like they were taken by regular people in daily life situations.</p>
+                <h4>Tips:</h4>
+                <ul>
+                    <li>Adjust the Amateur Level slider to control how amateur the photos will look</li>
+                    <li>Use the history tab to see your previously generated prompts</li>
+                    <li>Save your favorite prompts to reuse them later</li>
+                    <li>Custom subjects work great with the random button</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
